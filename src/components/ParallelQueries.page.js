@@ -1,0 +1,25 @@
+import axios from "axios";
+import { useQuery } from "react-query";
+
+const fetchSuperHeroes = () => {
+  return axios.get("http://localhost:4000/superheroes");
+};
+const fetchFriends = () => {
+  return axios.get("http://localhost:4000/friends");
+};
+export const ParallelQueriesPage = () => {
+  const { data: superHeroes } = useQuery("super-heroes", fetchSuperHeroes);
+  const { data: friends } = useQuery("friends", fetchFriends);
+
+  return (
+    <div>
+      {superHeroes?.data.map((hero) => (
+        <diV key={hero.id}>{hero.name}</diV>
+      ))}
+      <br />
+      {friends?.data.map((friend) => (
+        <diV key={friend.id}>{friend.name}</diV>
+      ))}
+    </div>
+  );
+};
